@@ -6,10 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tidalwork — Caribbean Resilience Co.</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-
+```
 :root {
   --ocean: #0a2e3d;
   --teal: #0d7377;
@@ -22,43 +23,23 @@
 }
 
 html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--cream);
-  color: var(--text);
-  overflow-x: hidden;
-}
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
 
 /* ── NAV ── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; justify-content: space-between; align-items: center;
   padding: 1.4rem 3rem;
-  background: rgba(10,46,61,0.92);
+  background: rgba(10,46,61,0.95);
   backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(20,167,160,0.15);
 }
-.nav-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem; font-weight: 900;
-  color: var(--sand); letter-spacing: 0.02em;
-}
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--sand); letter-spacing: 0.02em; }
 .nav-logo span { color: var(--turquoise); }
 .nav-links { display: flex; gap: 2.2rem; list-style: none; }
-.nav-links a {
-  color: var(--sand); opacity: 0.75;
-  text-decoration: none; font-size: 0.85rem;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  transition: opacity 0.2s;
-}
+.nav-links a { color: var(--sand); opacity: 0.75; text-decoration: none; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; transition: opacity 0.2s; }
 .nav-links a:hover { opacity: 1; }
-.nav-cta {
-  background: var(--coral); color: #fff;
-  border: none; padding: 0.6rem 1.4rem;
-  font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  cursor: pointer; transition: background 0.2s;
-}
+.nav-cta { background: var(--coral); color: #fff; border: none; padding: 0.6rem 1.4rem; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
 .nav-cta:hover { background: #cf4a28; }
 
 /* ── HERO ── */
@@ -75,245 +56,171 @@ nav {
   background: radial-gradient(ellipse at 70% 50%, rgba(13,115,119,0.35) 0%, transparent 65%),
               radial-gradient(ellipse at 20% 80%, rgba(20,167,160,0.2) 0%, transparent 50%);
 }
-/* wave SVG bottom */
-.hero-wave {
-  position: absolute; bottom: -2px; left: 0; right: 0; z-index: 1;
+/* Caribbean wave pattern overlay */
+.hero-pattern {
+  position: absolute; inset: 0; z-index: 0; opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 30 Q15 10 30 30 Q45 50 60 30' stroke='%2314a7a0' stroke-width='2' fill='none'/%3E%3Cpath d='M0 50 Q15 30 30 50 Q45 70 60 50' stroke='%2314a7a0' stroke-width='2' fill='none'/%3E%3Cpath d='M0 10 Q15 -10 30 10 Q45 30 60 10' stroke='%2314a7a0' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-size: 60px 60px;
 }
+.hero-wave { position: absolute; bottom: -2px; left: 0; right: 0; z-index: 1; }
 .hero-content { position: relative; z-index: 2; }
-.hero-eyebrow {
-  display: inline-block;
-  font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--turquoise); margin-bottom: 1.4rem;
-  border-left: 3px solid var(--coral); padding-left: 0.8rem;
-}
-h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.8rem, 5vw, 4.4rem);
-  line-height: 1.1; color: var(--sand);
-  margin-bottom: 1.6rem;
-}
+.hero-eyebrow { display: inline-block; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--turquoise); margin-bottom: 1.4rem; border-left: 3px solid var(--coral); padding-left: 0.8rem; }
+h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 5vw, 4.4rem); line-height: 1.1; color: var(--sand); margin-bottom: 1.6rem; }
 h1 em { color: var(--turquoise); font-style: italic; }
-.hero-sub {
-  font-size: 1.05rem; line-height: 1.7;
-  color: rgba(242,232,213,0.72); max-width: 480px;
-  margin-bottom: 2.4rem;
-}
+.hero-sub { font-size: 1.05rem; line-height: 1.7; color: rgba(242,232,213,0.72); max-width: 480px; margin-bottom: 2.4rem; }
 .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-.btn-primary {
-  background: var(--coral); color: #fff;
-  padding: 0.9rem 2rem; border: none; cursor: pointer;
-  font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  transition: background 0.2s, transform 0.2s;
-}
+.btn-primary { background: var(--coral); color: #fff; padding: 0.9rem 2rem; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; transition: background 0.2s, transform 0.2s; }
 .btn-primary:hover { background: #cf4a28; transform: translateY(-2px); }
-.btn-outline {
-  background: transparent; color: var(--sand);
-  padding: 0.9rem 2rem; border: 1.5px solid rgba(242,232,213,0.4);
-  cursor: pointer; font-family: 'DM Sans', sans-serif;
-  font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase;
-  transition: border-color 0.2s, color 0.2s;
-  text-decoration: none; display: inline-flex; align-items: center;
-}
+.btn-outline { background: transparent; color: var(--sand); padding: 0.9rem 2rem; border: 1.5px solid rgba(242,232,213,0.4); cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; transition: border-color 0.2s, color 0.2s; text-decoration: none; display: inline-flex; align-items: center; }
 .btn-outline:hover { border-color: var(--turquoise); color: var(--turquoise); }
 
 /* hero visual */
-.hero-visual {
-  position: relative; z-index: 2;
-  display: flex; justify-content: center; align-items: center;
-}
-.hero-ring {
-  width: 420px; height: 420px; border-radius: 50%;
-  border: 1px solid rgba(20,167,160,0.3);
-  display: flex; justify-content: center; align-items: center;
-  animation: spin-slow 30s linear infinite;
-}
-.hero-ring-inner {
-  width: 300px; height: 300px; border-radius: 50%;
-  border: 1px dashed rgba(212,168,67,0.3);
-  display: flex; justify-content: center; align-items: center;
-  animation: spin-slow 20s linear infinite reverse;
-}
-.hero-island {
-  width: 180px; height: 180px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--teal), var(--turquoise));
-  display: flex; flex-direction: column;
-  justify-content: center; align-items: center; gap: 0.3rem;
-  animation: none;
-  box-shadow: 0 0 60px rgba(20,167,160,0.4);
-}
-.hero-island-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.8rem; font-weight: 900; color: #fff;
-}
-.hero-island-label {
-  font-size: 0.7rem; letter-spacing: 0.14em;
-  text-transform: uppercase; color: rgba(255,255,255,0.7);
-}
+.hero-visual { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; }
+.hero-ring { width: 420px; height: 420px; border-radius: 50%; border: 1px solid rgba(20,167,160,0.3); display: flex; justify-content: center; align-items: center; animation: spin-slow 30s linear infinite; }
+.hero-ring-inner { width: 300px; height: 300px; border-radius: 50%; border: 1px dashed rgba(212,168,67,0.3); display: flex; justify-content: center; align-items: center; animation: spin-slow 20s linear infinite reverse; }
+.hero-island { width: 180px; height: 180px; border-radius: 50%; background: linear-gradient(135deg, var(--teal), var(--turquoise)); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.3rem; box-shadow: 0 0 60px rgba(20,167,160,0.4); animation: none; }
+.hero-island-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900; color: #fff; }
+.hero-island-label { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
 @keyframes spin-slow { to { transform: rotate(360deg); } }
 
+/* floating flags */
+.hero-flags {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+}
+.hero-flag {
+  position: absolute; font-size: 1.6rem;
+  animation: float 6s ease-in-out infinite;
+  opacity: 0.5;
+}
+.hero-flag:nth-child(1) { top: 15%; left: 8%; animation-delay: 0s; }
+.hero-flag:nth-child(2) { top: 25%; right: 5%; animation-delay: 1s; }
+.hero-flag:nth-child(3) { bottom: 30%; left: 5%; animation-delay: 2s; }
+.hero-flag:nth-child(4) { bottom: 20%; right: 8%; animation-delay: 3s; }
+.hero-flag:nth-child(5) { top: 60%; left: 12%; animation-delay: 1.5s; }
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
 /* ── STATS BAR ── */
-.stats-bar {
-  background: var(--gold);
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  padding: 1.8rem 3rem;
-}
-.stat {
-  text-align: center; border-right: 1px solid rgba(10,46,61,0.2);
-  padding: 0.5rem 1rem;
-}
+.stats-bar { background: var(--gold); display: grid; grid-template-columns: repeat(4, 1fr); padding: 1.8rem 3rem; }
+.stat { text-align: center; border-right: 1px solid rgba(10,46,61,0.2); padding: 0.5rem 1rem; }
 .stat:last-child { border-right: none; }
-.stat-num {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem; font-weight: 900; color: var(--ocean);
-}
-.stat-label {
-  font-size: 0.72rem; letter-spacing: 0.1em;
-  text-transform: uppercase; color: rgba(10,46,61,0.65);
-  margin-top: 0.2rem;
-}
+.stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--ocean); }
+.stat-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(10,46,61,0.65); margin-top: 0.2rem; }
 
 /* ── SECTIONS ── */
 section { padding: 6rem 3rem; }
-
-.section-eyebrow {
-  font-size: 0.72rem; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--coral);
-  margin-bottom: 0.8rem;
-}
-h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 3.5vw, 3rem);
-  line-height: 1.15; color: var(--ocean);
-  margin-bottom: 1.2rem;
-}
+.section-eyebrow { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--coral); margin-bottom: 0.8rem; }
+h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1.15; color: var(--ocean); margin-bottom: 1.2rem; }
 h2 em { color: var(--teal); font-style: italic; }
 
 /* ── PILLARS ── */
-#pillars { background: var(--cream); }
+#pillars { background: var(--cream); position: relative; overflow: hidden; }
+#pillars::before {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 6px;
+  background: linear-gradient(90deg, var(--turquoise), var(--coral), var(--gold), var(--teal));
+}
 .pillars-header { max-width: 560px; margin-bottom: 3.5rem; }
-.pillars-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
-}
-.pillar {
-  background: #fff; padding: 2rem 1.6rem;
-  border-top: 4px solid var(--turquoise);
-  box-shadow: 0 2px 20px rgba(10,46,61,0.06);
-  transition: transform 0.25s, box-shadow 0.25s;
-}
+.pillars-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.pillar { background: #fff; padding: 2rem 1.6rem; border-top: 4px solid var(--turquoise); box-shadow: 0 2px 20px rgba(10,46,61,0.06); transition: transform 0.25s, box-shadow 0.25s; }
 .pillar:nth-child(2) { border-top-color: var(--coral); }
 .pillar:nth-child(3) { border-top-color: var(--gold); }
 .pillar:nth-child(4) { border-top-color: var(--teal); }
 .pillar:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(10,46,61,0.12); }
 .pillar-icon { font-size: 2.2rem; margin-bottom: 1rem; }
-.pillar h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.15rem; margin-bottom: 0.6rem; color: var(--ocean);
-}
+.pillar h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; margin-bottom: 0.6rem; color: var(--ocean); }
 .pillar p { font-size: 0.88rem; line-height: 1.65; color: #4a6070; }
 
-/* ── HOW IT WORKS ── */
-#how { background: var(--ocean); color: var(--sand); }
+/* ── HOW ── */
+#how { background: var(--ocean); color: var(--sand); position: relative; overflow: hidden; }
+#how::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='40' viewBox='0 0 80 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 Q20 0 40 20 Q60 40 80 20' stroke='%2314a7a0' stroke-width='1' fill='none' opacity='0.06'/%3E%3C/svg%3E");
+  background-size: 80px 40px;
+}
 #how .section-eyebrow { color: var(--turquoise); }
 #how h2 { color: var(--sand); }
 #how h2 em { color: var(--gold); }
-.steps {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 2rem; margin-top: 3.5rem; position: relative;
-}
-.steps::before {
-  content: '';
-  position: absolute; top: 2.2rem; left: 16%; right: 16%;
-  height: 1px; background: rgba(20,167,160,0.3);
-}
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3.5rem; position: relative; z-index: 1; }
+.steps::before { content: ''; position: absolute; top: 2.2rem; left: 16%; right: 16%; height: 1px; background: rgba(20,167,160,0.3); }
 .step { text-align: center; padding: 1rem; }
-.step-num {
-  width: 44px; height: 44px; border-radius: 50%;
-  background: var(--turquoise);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 1.4rem;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem; font-weight: 700; color: #fff;
-}
-.step h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem; color: var(--sand); margin-bottom: 0.7rem;
-}
+.step-num { width: 44px; height: 44px; border-radius: 50%; background: var(--turquoise); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.4rem; font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #fff; }
+.step h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--sand); margin-bottom: 0.7rem; }
 .step p { font-size: 0.88rem; line-height: 1.65; color: rgba(242,232,213,0.65); }
 
 /* ── IMPACT ── */
 #impact { background: var(--sand); }
-.impact-grid {
-  display: grid; grid-template-columns: 1.2fr 1fr;
-  gap: 5rem; align-items: center; margin-top: 3rem;
-}
-.impact-text p {
-  font-size: 1rem; line-height: 1.8; color: #3a5060; margin-bottom: 1.2rem;
-}
+.impact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 5rem; align-items: center; margin-top: 3rem; }
+.impact-text p { font-size: 1rem; line-height: 1.8; color: #3a5060; margin-bottom: 1.2rem; }
 .impact-cards { display: flex; flex-direction: column; gap: 1.2rem; }
-.impact-card {
-  background: #fff; padding: 1.4rem 1.6rem;
-  display: flex; align-items: flex-start; gap: 1rem;
-  box-shadow: 0 2px 12px rgba(10,46,61,0.07);
-}
-.impact-card-icon {
-  font-size: 1.6rem; flex-shrink: 0; margin-top: 0.1rem;
-}
-.impact-card h4 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem; color: var(--ocean); margin-bottom: 0.3rem;
-}
+.impact-card { background: #fff; padding: 1.4rem 1.6rem; display: flex; align-items: flex-start; gap: 1rem; box-shadow: 0 2px 12px rgba(10,46,61,0.07); }
+.impact-card-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 0.1rem; }
+.impact-card h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--ocean); margin-bottom: 0.3rem; }
 .impact-card p { font-size: 0.83rem; color: #4a6070; line-height: 1.6; }
 
 /* ── ISLANDS ── */
-#islands { background: #fff; }
+#islands { background: #fff; position: relative; overflow: hidden; }
+.islands-ocean-bar {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 8px;
+  background: linear-gradient(90deg, var(--ocean), var(--teal), var(--turquoise), var(--teal), var(--ocean));
+}
 .islands-intro { max-width: 560px; margin-bottom: 3rem; }
 .islands-intro p { font-size: 1rem; line-height: 1.7; color: #4a6070; margin-top: 0.8rem; }
-.islands-list {
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem;
-}
-/* also update the hero island count */
+.islands-list { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
 .island-tag {
   background: var(--cream); border: 1.5px solid rgba(10,46,61,0.12);
   padding: 1rem; text-align: center;
-  transition: background 0.2s, border-color 0.2s;
-  cursor: default;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  cursor: pointer; position: relative; overflow: hidden;
 }
-.island-tag:hover { background: var(--turquoise); border-color: var(--turquoise); }
+.island-tag::after {
+  content: 'Learn more';
+  position: absolute; bottom: -20px; left: 0; right: 0;
+  font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #fff; background: var(--turquoise);
+  padding: 0.2rem; text-align: center;
+  transition: bottom 0.2s;
+}
+.island-tag:hover { background: var(--turquoise); border-color: var(--turquoise); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(20,167,160,0.25); }
+.island-tag:hover::after { bottom: 0; }
 .island-tag:hover .island-name { color: #fff; }
-.island-flag { font-size: 1.6rem; margin-bottom: 0.4rem; }
-.island-name { font-size: 0.8rem; font-weight: 500; color: var(--ocean); }
+.island-flag { font-size: 1.8rem; margin-bottom: 0.4rem; }
+.island-name { font-size: 0.8rem; font-weight: 500; color: var(--ocean); transition: color 0.2s; }
 
 /* ── CTA ── */
 #cta {
   background: linear-gradient(135deg, var(--teal) 0%, var(--ocean) 100%);
   text-align: center; padding: 7rem 3rem;
+  position: relative; overflow: hidden;
 }
-#cta h2 { color: var(--sand); margin-bottom: 1rem; }
+#cta::before {
+  content: '🌊';
+  position: absolute; font-size: 20rem; opacity: 0.03;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+#cta h2 { color: var(--sand); margin-bottom: 1rem; position: relative; }
 #cta h2 em { color: var(--gold); }
-#cta p {
-  color: rgba(242,232,213,0.7); font-size: 1rem;
-  max-width: 500px; margin: 0 auto 2.4rem; line-height: 1.7;
-}
-.cta-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+#cta p { color: rgba(242,232,213,0.7); font-size: 1rem; max-width: 500px; margin: 0 auto 2.4rem; line-height: 1.7; position: relative; }
+.cta-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; position: relative; }
 
 /* ── FOOTER ── */
 footer {
   background: var(--ocean); color: rgba(242,232,213,0.5);
   display: flex; justify-content: space-between; align-items: center;
   padding: 2rem 3rem; font-size: 0.82rem;
+  border-top: 3px solid var(--teal);
 }
-footer .footer-logo {
-  font-family: 'Playfair Display', serif;
-  color: var(--sand); font-size: 1.1rem; font-weight: 700;
-}
+footer .footer-logo { font-family: 'Playfair Display', serif; color: var(--sand); font-size: 1.1rem; font-weight: 700; }
 footer .footer-logo span { color: var(--turquoise); }
+footer a { color: rgba(242,232,213,0.5); text-decoration: none; transition: color 0.2s; }
+footer a:hover { color: var(--turquoise); }
 
 /* ── ANIMATIONS ── */
-.fade-up {
-  opacity: 0; transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
+.fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .fade-up.visible { opacity: 1; transform: translateY(0); }
 
 /* ── RESPONSIVE ── */
@@ -334,6 +241,55 @@ footer .footer-logo span { color: var(--turquoise); }
   .islands-list { grid-template-columns: repeat(2, 1fr); }
   .nav-links { display: none; }
 }
+
+/* ── MODALS ── */
+.modal-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(10,46,61,0.85); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; padding: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal { background: var(--cream); width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; transform: translateY(20px) scale(0.98); transition: transform 0.25s; }
+.modal-overlay.open .modal { transform: translateY(0) scale(1); }
+.modal-header { background: var(--ocean); padding: 1.8rem 2rem; display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid var(--turquoise); }
+.modal-header-text h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--sand); margin-bottom: 0.2rem; }
+.modal-header-text p { font-size: 0.78rem; color: rgba(242,232,213,0.55); letter-spacing: 0.06em; text-transform: uppercase; }
+.modal-close { background: none; border: none; color: rgba(242,232,213,0.5); font-size: 1.5rem; cursor: pointer; line-height: 1; padding: 0; margin-left: 1rem; transition: color 0.2s; flex-shrink: 0; }
+.modal-close:hover { color: var(--sand); }
+.modal-body { padding: 2rem; }
+.form-group { margin-bottom: 1.2rem; }
+.form-group label { display: block; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: #4a6070; margin-bottom: 0.45rem; font-weight: 500; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.7rem 0.9rem; background: #fff; border: 1.5px solid rgba(10,46,61,0.15); font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--ocean); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--turquoise); box-shadow: 0 0 0 3px rgba(20,167,160,0.12); }
+.form-group textarea { resize: vertical; min-height: 90px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.modal-submit { width: 100%; background: var(--coral); color: #fff; border: none; padding: 0.85rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; margin-top: 0.4rem; transition: background 0.2s; }
+.modal-submit:hover { background: #cf4a28; }
+.modal-submit:disabled { background: #aaa; cursor: not-allowed; }
+.success-msg { text-align: center; padding: 1rem 0; display: none; }
+.success-msg .success-icon { font-size: 2.8rem; margin-bottom: 0.8rem; }
+.success-msg h4 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--ocean); margin-bottom: 0.5rem; }
+.success-msg p { font-size: 0.9rem; color: #4a6070; line-height: 1.6; }
+
+/* island modal */
+.island-modal-flag { font-size: 3rem; margin-bottom: 0.6rem; display: block; }
+.island-description { font-size: 0.93rem; color: #3a5060; line-height: 1.7; margin-bottom: 1.4rem; }
+.island-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1.4rem; }
+.island-stat-box { background: #fff; border: 1.5px solid rgba(10,46,61,0.1); padding: 0.9rem 1rem; }
+.island-stat-val { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--teal); font-weight: 700; }
+.island-stat-key { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: #4a6070; margin-top: 0.15rem; }
+.island-pillars-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: #4a6070; margin-bottom: 0.6rem; font-weight: 500; }
+.island-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.6rem; }
+.island-pill { background: rgba(13,115,119,0.1); color: var(--teal); font-size: 0.75rem; padding: 0.28rem 0.7rem; font-weight: 500; }
+
+/* report modal */
+.report-row { display: flex; justify-content: space-between; align-items: center; padding: 0.85rem 0; border-bottom: 1px solid rgba(10,46,61,0.08); }
+.report-row:last-of-type { border-bottom: none; }
+.report-row-label { font-size: 0.88rem; color: #3a5060; }
+.report-row-val { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--teal); font-weight: 700; }
+
+.error-msg { color: var(--coral); font-size: 0.82rem; margin-top: 0.8rem; display: none; }
+
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; }
+  .island-stats-grid { grid-template-columns: 1fr; }
+}
 ```
 
   </style>
@@ -350,20 +306,28 @@ footer .footer-logo span { color: var(--turquoise); }
     <li><a href="#impact">Impact</a></li>
     <li><a href="#islands">Islands</a></li>
   </ul>
-  <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Partner With Us</button>
+  <button class="nav-cta" onclick="openModal('partner')">Partner With Us</button>
 </nav>
 
 <!-- HERO -->
 
 <section id="hero">
   <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-flags">
+    <span class="hero-flag">🇯🇲</span>
+    <span class="hero-flag">🇧🇧</span>
+    <span class="hero-flag">🇹🇹</span>
+    <span class="hero-flag">🇵🇷</span>
+    <span class="hero-flag">🇱🇨</span>
+  </div>
   <div class="hero-content fade-up">
     <span class="hero-eyebrow">Caribbean Resilience Company</span>
     <h1>Building islands<br/>that <em>rise</em><br/>with every tide</h1>
     <p class="hero-sub">Tidalwork delivers integrated climate recovery, economic development, healthcare, and food security solutions across the Caribbean — built for profit, built for people.</p>
     <div class="hero-btns">
       <button class="btn-primary" onclick="document.getElementById('pillars').scrollIntoView({behavior:'smooth'})">Explore Our Work</button>
-      <a class="btn-outline" href="#cta">Invest With Us →</a>
+      <button class="btn-outline" onclick="openModal('invest')">Invest With Us →</button>
     </div>
   </div>
   <div class="hero-visual">
@@ -384,22 +348,10 @@ footer .footer-logo span { color: var(--turquoise); }
 <!-- STATS BAR -->
 
 <div class="stats-bar">
-  <div class="stat">
-    <div class="stat-num">$4.2B</div>
-    <div class="stat-label">Annual hurricane losses across Caribbean</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">40%</div>
-    <div class="stat-label">Of island households lack reliable power</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">3M+</div>
-    <div class="stat-label">People without adequate healthcare access</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">70%</div>
-    <div class="stat-label">Food imported — vulnerable to disruption</div>
-  </div>
+  <div class="stat"><div class="stat-num">$4.2B</div><div class="stat-label">Annual hurricane losses across Caribbean</div></div>
+  <div class="stat"><div class="stat-num">40%</div><div class="stat-label">Of island households lack reliable power</div></div>
+  <div class="stat"><div class="stat-num">3M+</div><div class="stat-label">People without adequate healthcare access</div></div>
+  <div class="stat"><div class="stat-num">70%</div><div class="stat-label">Food imported — vulnerable to disruption</div></div>
 </div>
 
 <!-- PILLARS -->
@@ -410,86 +362,40 @@ footer .footer-logo span { color: var(--turquoise); }
     <h2>Four pillars.<br/><em>One mission.</em></h2>
   </div>
   <div class="pillars-grid">
-    <div class="pillar fade-up">
-      <div class="pillar-icon">🌀</div>
-      <h3>Climate & Hurricane Recovery</h3>
-      <p>Resilient infrastructure design, rapid-response disaster logistics, and community rebuilding programs that get islands back on their feet — faster and stronger.</p>
-    </div>
-    <div class="pillar fade-up">
-      <div class="pillar-icon">📈</div>
-      <h3>Economic Development</h3>
-      <p>Local enterprise incubation, workforce training, and trade facilitation that creates lasting jobs and reduces dependency on aid and imports.</p>
-    </div>
-    <div class="pillar fade-up">
-      <div class="pillar-icon">🏥</div>
-      <h3>Healthcare Access</h3>
-      <p>Telehealth platforms, mobile clinics, and supply chain solutions bringing quality care to remote and underserved island communities.</p>
-    </div>
-    <div class="pillar fade-up">
-      <div class="pillar-icon">🌱</div>
-      <h3>Food & Water Security</h3>
-      <p>Regenerative agriculture programs, desalination systems, and cold-chain logistics that make islands self-sufficient in their most critical resources.</p>
-    </div>
+    <div class="pillar fade-up"><div class="pillar-icon">🌀</div><h3>Climate & Hurricane Recovery</h3><p>Resilient infrastructure design, rapid-response disaster logistics, and community rebuilding programs that get islands back on their feet — faster and stronger.</p></div>
+    <div class="pillar fade-up"><div class="pillar-icon">📈</div><h3>Economic Development</h3><p>Local enterprise incubation, workforce training, and trade facilitation that creates lasting jobs and reduces dependency on aid and imports.</p></div>
+    <div class="pillar fade-up"><div class="pillar-icon">🏥</div><h3>Healthcare Access</h3><p>Telehealth platforms, mobile clinics, and supply chain solutions bringing quality care to remote and underserved island communities.</p></div>
+    <div class="pillar fade-up"><div class="pillar-icon">🌱</div><h3>Food & Water Security</h3><p>Regenerative agriculture programs, desalination systems, and cold-chain logistics that make islands self-sufficient in their most critical resources.</p></div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
 
 <section id="how">
-  <div class="section-eyebrow">How It Works</div>
-  <h2>The <em>Tidalwork</em> model</h2>
+  <div class="section-eyebrow" style="position:relative;z-index:1;">How It Works</div>
+  <h2 style="position:relative;z-index:1;">The <em>Tidalwork</em> model</h2>
   <div class="steps">
-    <div class="step fade-up">
-      <div class="step-num">1</div>
-      <h3>Assess & Partner</h3>
-      <p>We embed with island governments and communities to map vulnerabilities, build trust, and co-design solutions that fit local culture and needs.</p>
-    </div>
-    <div class="step fade-up">
-      <div class="step-num">2</div>
-      <h3>Deploy Integrated Solutions</h3>
-      <p>Our four-pillar platform is deployed simultaneously — each system reinforcing the others. Energy powers clinics; local farms supply recovery workers.</p>
-    </div>
-    <div class="step fade-up">
-      <div class="step-num">3</div>
-      <h3>Generate Returns & Scale</h3>
-      <p>Revenue from government contracts, service fees, and impact bonds funds expansion to new islands. Every dollar earns a return and drives real change.</p>
-    </div>
+    <div class="step fade-up"><div class="step-num">1</div><h3>Assess & Partner</h3><p>We embed with island governments and communities to map vulnerabilities, build trust, and co-design solutions that fit local culture and needs.</p></div>
+    <div class="step fade-up"><div class="step-num">2</div><h3>Deploy Integrated Solutions</h3><p>Our four-pillar platform is deployed simultaneously — each system reinforcing the others. Energy powers clinics; local farms supply recovery workers.</p></div>
+    <div class="step fade-up"><div class="step-num">3</div><h3>Generate Returns & Scale</h3><p>Revenue from government contracts, service fees, and impact bonds funds expansion to new islands. Every dollar earns a return and drives real change.</p></div>
   </div>
 </section>
 
 <!-- IMPACT -->
 
 <section id="impact">
-  <div class="section-eyebrow fade-up">Our Impact</div>
+  <div class="section-eyebrow fade-up">Our Goals</div>
   <div class="impact-grid">
     <div class="impact-text fade-up">
       <h2>Profit and<br/><em>purpose</em> aren't opposites</h2>
       <p>Tidalwork is built on the belief that sustainable businesses create more lasting change than charity. When communities thrive economically, resilience follows naturally.</p>
-      <p>We measure success in two ways: financial returns for our investors and partners, and tangible improvements in the lives of Caribbean people.</p>
-      <a class="btn-outline" href="#cta" style="color:var(--ocean); border-color:rgba(10,46,61,0.3); margin-top:0.5rem;">See Our Impact Report →</a>
+      <p>We measure success in two ways: financial returns for our investors and partners, and tangible improvements in the lives of Caribbean people. Here's what we're building toward.</p>
+      <button class="btn-outline" onclick="openModal('report')" style="color:var(--ocean); border-color:rgba(10,46,61,0.3); margin-top:0.5rem;">See Our 2026–2028 Goals →</button>
     </div>
     <div class="impact-cards fade-up">
-      <div class="impact-card">
-        <div class="impact-card-icon">⚡</div>
-        <div>
-          <h4>Clean Energy Microgrids</h4>
-          <p>Solar-plus-storage systems that keep critical services running through category 5 storms and beyond.</p>
-        </div>
-      </div>
-      <div class="impact-card">
-        <div class="impact-card-icon">💧</div>
-        <div>
-          <h4>Water Independence</h4>
-          <p>Community-scale desalination and rainwater harvesting that ends reliance on vulnerable supply chains.</p>
-        </div>
-      </div>
-      <div class="impact-card">
-        <div class="impact-card-icon">🤝</div>
-        <div>
-          <h4>Local Ownership First</h4>
-          <p>Every project is structured so communities build equity, not dependency. We invest in people, not just infrastructure.</p>
-        </div>
-      </div>
+      <div class="impact-card"><div class="impact-card-icon">⚡</div><div><h4>Clean Energy Microgrids</h4><p>Solar-plus-storage systems that keep critical services running through category 5 storms and beyond.</p></div></div>
+      <div class="impact-card"><div class="impact-card-icon">💧</div><div><h4>Water Independence</h4><p>Community-scale desalination and rainwater harvesting that ends reliance on vulnerable supply chains.</p></div></div>
+      <div class="impact-card"><div class="impact-card-icon">🤝</div><div><h4>Local Ownership First</h4><p>Every project is structured so communities build equity, not dependency. We invest in people, not just infrastructure.</p></div></div>
     </div>
   </div>
 </section>
@@ -500,41 +406,21 @@ footer .footer-logo span { color: var(--turquoise); }
   <div class="islands-intro fade-up">
     <div class="section-eyebrow">Where We Work</div>
     <h2>Rooted across<br/><em>the Caribbean</em></h2>
-    <p>From the Greater Antilles to the Eastern Caribbean, Tidalwork is building a network of resilient island communities — one partnership at a time.</p>
+    <p>From the Greater Antilles to the Eastern Caribbean, Tidalwork is building a network of resilient island communities — one partnership at a time. <strong>Click any island to learn more.</strong></p>
   </div>
-  <div class="islands-list fade-up">
-    <div class="island-tag"><div class="island-flag">🇨🇺</div><div class="island-name">Cuba</div></div>
-    <div class="island-tag"><div class="island-flag">🇯🇲</div><div class="island-name">Jamaica</div></div>
-    <div class="island-tag"><div class="island-flag">🇭🇹</div><div class="island-name">Haiti</div></div>
-    <div class="island-tag"><div class="island-flag">🇩🇴</div><div class="island-name">Dominican Rep.</div></div>
-    <div class="island-tag"><div class="island-flag">🇵🇷</div><div class="island-name">Puerto Rico</div></div>
-    <div class="island-tag"><div class="island-flag">🇧🇧</div><div class="island-name">Barbados</div></div>
-    <div class="island-tag"><div class="island-flag">🇹🇹</div><div class="island-name">Trinidad & Tobago</div></div>
-    <div class="island-tag"><div class="island-flag">🇬🇩</div><div class="island-name">Grenada</div></div>
-    <div class="island-tag"><div class="island-flag">🇱🇨</div><div class="island-name">Saint Lucia</div></div>
-    <div class="island-tag"><div class="island-flag">🇻🇨</div><div class="island-name">St. Vincent</div></div>
-    <div class="island-tag"><div class="island-flag">🇧🇸</div><div class="island-name">The Bahamas</div></div>
-    <div class="island-tag"><div class="island-flag">🇦🇬</div><div class="island-name">Antigua & Barbuda</div></div>
-    <div class="island-tag"><div class="island-flag">🇩🇲</div><div class="island-name">Dominica</div></div>
-    <div class="island-tag"><div class="island-flag">🇰🇳</div><div class="island-name">St. Kitts & Nevis</div></div>
-    <div class="island-tag"><div class="island-flag">🇻🇮</div><div class="island-name">U.S. Virgin Islands</div></div>
-    <div class="island-tag"><div class="island-flag">🇦🇼</div><div class="island-name">Aruba</div></div>
-    <div class="island-tag"><div class="island-flag">🇨🇼</div><div class="island-name">Curaçao</div></div>
-    <div class="island-tag"><div class="island-flag">🇹🇨</div><div class="island-name">Turks & Caicos</div></div>
-    <div class="island-tag"><div class="island-flag">🇬🇾</div><div class="island-name">Guyana</div></div>
-    <div class="island-tag"><div class="island-flag">🇸🇷</div><div class="island-name">Suriname</div></div>
-  </div>
+  <div class="islands-list fade-up" id="islandsGrid"></div>
+  <div class="islands-ocean-bar"></div>
 </section>
 
 <!-- CTA -->
 
 <section id="cta">
-  <div class="section-eyebrow" style="color:var(--turquoise)">Get Involved</div>
+  <div class="section-eyebrow" style="color:var(--turquoise);position:relative;">Get Involved</div>
   <h2>Ready to build the<br/><em>resilient Caribbean?</em></h2>
   <p>Whether you're a government, investor, NGO, or community leader — there's a place for you in the Tidalwork ecosystem.</p>
   <div class="cta-btns">
-    <button class="btn-primary">Partner With Us</button>
-    <a class="btn-outline" href="mailto:hello@tidalwork.co">hello@tidalwork.co</a>
+    <button class="btn-primary" onclick="openModal('partner')">Partner With Us</button>
+    <button class="btn-outline" onclick="openModal('invest')">Invest With Us</button>
   </div>
 </section>
 
@@ -543,20 +429,283 @@ footer .footer-logo span { color: var(--turquoise); }
 <footer>
   <div class="footer-logo">Tidal<span>work</span></div>
   <div>Caribbean Resilience Co. · Est. 2026</div>
-  <div>© 2026 Tidalwork. All rights reserved.</div>
+  <div><a href="/cdn-cgi/l/email-protection#224a474e4e4d62564b46434e554d50490c414d"><span class="__cf_email__" data-cfemail="91f9f4fdfdfed1e5f8f5f0fde6fee3fabff2fe">[email&#160;protected]</span></a> · © 2026 Tidalwork</div>
 </footer>
 
-<script>
-  // Fade-up on scroll
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-      }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-</script>
+<!-- MODAL: PARTNER -->
 
-</body>
-</html>
+<div class="modal-overlay" id="modal-partner" onclick="closeOnBackdrop(event,'partner')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-header-text"><h3>Partner With Us</h3><p>Governments · NGOs · Community Organizations</p></div>
+      <button class="modal-close" onclick="closeModal('partner')">×</button>
+    </div>
+    <div class="modal-body">
+      <div id="partner-form">
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" id="p_firstname" placeholder="Maria"/></div>
+          <div class="form-group"><label>Last Name</label><input type="text" id="p_lastname" placeholder="Johnson"/></div>
+        </div>
+        <div class="form-group"><label>Organization</label><input type="text" id="p_org" placeholder="Ministry of Environment, Jamaica"/></div>
+        <div class="form-group"><label>Role / Title</label><input type="text" id="p_role" placeholder="Director of Climate Policy"/></div>
+        <div class="form-group"><label>Email</label><input type="email" id="p_email" placeholder="maria@example.gov"/></div>
+        <div class="form-group"><label>Island / Region</label>
+          <select id="p_island">
+            <option value="">Select an island...</option>
+            <option>Cuba</option><option>Jamaica</option><option>Haiti</option><option>Dominican Republic</option><option>Puerto Rico</option><option>Barbados</option><option>Trinidad & Tobago</option><option>Grenada</option><option>Saint Lucia</option><option>St. Vincent</option><option>The Bahamas</option><option>Antigua & Barbuda</option><option>Dominica</option><option>St. Kitts & Nevis</option><option>U.S. Virgin Islands</option><option>Aruba</option><option>Curaçao</option><option>Turks & Caicos</option><option>Guyana</option><option>Suriname</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Area of Interest</label>
+          <select id="p_interest">
+            <option value="">Select a pillar...</option>
+            <option>Climate & Hurricane Recovery</option><option>Economic Development</option><option>Healthcare Access</option><option>Food & Water Security</option><option>Multiple / All Pillars</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Tell us about your needs</label><textarea id="p_message" placeholder="Describe your community's challenges and how you'd like to work together..."></textarea></div>
+        <div class="error-msg" id="partner-error">Please fill in all required fields.</div>
+        <button class="modal-submit" id="partner-btn" onclick="sendPartner()">Submit Partnership Inquiry</button>
+      </div>
+      <div class="success-msg" id="partner-success">
+        <div class="success-icon">🌊</div>
+        <h4>Thank you for reaching out!</h4>
+        <p>Our partnerships team will be in touch within 3 business days.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: INVEST -->
+
+<div class="modal-overlay" id="modal-invest" onclick="closeOnBackdrop(event,'invest')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-header-text"><h3>Invest With Us</h3><p>Impact Investors · Funds · Family Offices</p></div>
+      <button class="modal-close" onclick="closeModal('invest')">×</button>
+    </div>
+    <div class="modal-body">
+      <div id="invest-form">
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" id="i_firstname" placeholder="James"/></div>
+          <div class="form-group"><label>Last Name</label><input type="text" id="i_lastname" placeholder="Clarke"/></div>
+        </div>
+        <div class="form-group"><label>Organization / Fund</label><input type="text" id="i_org" placeholder="Blue Ocean Capital"/></div>
+        <div class="form-group"><label>Email</label><input type="email" id="i_email" placeholder="james@example.com"/></div>
+        <div class="form-group"><label>Investor Type</label>
+          <select id="i_type">
+            <option value="">Select type...</option>
+            <option>Impact Investment Fund</option><option>Family Office</option><option>Development Finance Institution</option><option>Sovereign Wealth Fund</option><option>Individual / Angel</option><option>Corporate / Strategic</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Investment Range</label>
+          <select id="i_range">
+            <option value="">Select range...</option>
+            <option>Under $500K</option><option>$500K – $2M</option><option>$2M – $10M</option><option>$10M – $50M</option><option>$50M+</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Primary Interest</label>
+          <select id="i_interest">
+            <option value="">Select interest...</option>
+            <option>Climate Resilience Infrastructure</option><option>Healthcare Delivery</option><option>Agri-food Systems</option><option>Economic Development</option><option>Blended Finance / Impact Bonds</option><option>Full Platform</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message (optional)</label><textarea id="i_message" placeholder="Tell us about your investment thesis..."></textarea></div>
+        <div class="error-msg" id="invest-error">Please fill in all required fields.</div>
+        <button class="modal-submit" id="invest-btn" onclick="sendInvest()">Request Investor Deck</button>
+      </div>
+      <div class="success-msg" id="invest-success">
+        <div class="success-icon">📊</div>
+        <h4>Request received!</h4>
+        <p>We'll send our investor deck and reach out to schedule a call within 2 business days.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: GOALS / IMPACT REPORT -->
+
+<div class="modal-overlay" id="modal-report" onclick="closeOnBackdrop(event,'report')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-header-text"><h3>2026–2028 Goals</h3><p>Tidalwork Caribbean Resilience Co.</p></div>
+      <button class="modal-close" onclick="closeModal('report')">×</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:0.9rem;color:#3a5060;line-height:1.7;margin-bottom:1.4rem;">Tidalwork launched in 2026. Here's what we're committed to building across the Caribbean over the next three years.</p>
+      <div class="report-row"><span class="report-row-label">Islands with active programs</span><span class="report-row-val">20+ by 2027</span></div>
+      <div class="report-row"><span class="report-row-label">Clean energy capacity deployed</span><span class="report-row-val">50 MW by 2028</span></div>
+      <div class="report-row"><span class="report-row-label">Households with reliable power</span><span class="report-row-val">100,000+ by 2028</span></div>
+      <div class="report-row"><span class="report-row-label">Healthcare touchpoints created</span><span class="report-row-val">500K by 2028</span></div>
+      <div class="report-row"><span class="report-row-label">Local jobs created or supported</span><span class="report-row-val">10,000 by 2028</span></div>
+      <div class="report-row"><span class="report-row-label">Farms transitioned to regenerative</span><span class="report-row-val">1,000 by 2028</span></div>
+      <div class="report-row"><span class="report-row-label">Investor IRR (projected)</span><span class="report-row-val">14–18%</span></div>
+      <div style="margin-top:1.6rem; padding-top:1.2rem; border-top:1px solid rgba(10,46,61,0.1);">
+        <p style="font-size:0.85rem;color:#4a6070;line-height:1.6;">Want to be part of making these goals a reality? Partner or invest with us today.</p>
+        <button class="modal-submit" style="margin-top:1rem;" onclick="closeModal('report');openModal('partner')">Partner With Us →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ISLAND -->
+
+<div class="modal-overlay" id="modal-island" onclick="closeOnBackdrop(event,'island')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-header-text"><h3 id="island-modal-name"></h3><p id="island-modal-region"></p></div>
+      <button class="modal-close" onclick="closeModal('island')">×</button>
+    </div>
+    <div class="modal-body">
+      <span class="island-modal-flag" id="island-modal-flag"></span>
+      <p class="island-description" id="island-modal-desc"></p>
+      <div class="island-stats-grid" id="island-modal-stats"></div>
+      <div class="island-pillars-label">Active Tidalwork Pillars</div>
+      <div class="island-tags" id="island-modal-tags"></div>
+      <button class="modal-submit" onclick="closeModal('island');openModal('partner')">Partner With Us in This Island →</button>
+    </div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+
+// Init EmailJS
+emailjs.init(‘62FKNBOCFMFoQlMvU’);
+
+const SERVICE_ID  = ‘service_dghrx1a’;
+const PARTNER_TID = ‘template_dh440hp’;
+const INVEST_TID  = ‘template_rc55n5h’;
+
+// Send Partner form
+function sendPartner() {
+const firstName = document.getElementById(‘p_firstname’).value.trim();
+const lastName  = document.getElementById(‘p_lastname’).value.trim();
+const email     = document.getElementById(‘p_email’).value.trim();
+const org       = document.getElementById(‘p_org’).value.trim();
+
+```
+if (!firstName || !lastName || !email || !org) {
+  document.getElementById('partner-error').style.display = 'block';
+  return;
+}
+document.getElementById('partner-error').style.display = 'none';
+const btn = document.getElementById('partner-btn');
+btn.disabled = true; btn.textContent = 'Sending...';
+
+emailjs.send(SERVICE_ID, PARTNER_TID, {
+  from_name:    firstName + ' ' + lastName,
+  from_email:   email,
+  organization: org,
+  role:         document.getElementById('p_role').value,
+  island:       document.getElementById('p_island').value,
+  interest:     document.getElementById('p_interest').value,
+  message:      document.getElementById('p_message').value,
+}).then(() => {
+  document.getElementById('partner-form').style.display = 'none';
+  document.getElementById('partner-success').style.display = 'block';
+}).catch(() => {
+  btn.disabled = false; btn.textContent = 'Submit Partnership Inquiry';
+  document.getElementById('partner-error').textContent = 'Something went wrong. Please try again.';
+  document.getElementById('partner-error').style.display = 'block';
+});
+```
+
+}
+
+// Send Invest form
+function sendInvest() {
+const firstName = document.getElementById(‘i_firstname’).value.trim();
+const lastName  = document.getElementById(‘i_lastname’).value.trim();
+const email     = document.getElementById(‘i_email’).value.trim();
+const org       = document.getElementById(‘i_org’).value.trim();
+
+```
+if (!firstName || !lastName || !email || !org) {
+  document.getElementById('invest-error').style.display = 'block';
+  return;
+}
+document.getElementById('invest-error').style.display = 'none';
+const btn = document.getElementById('invest-btn');
+btn.disabled = true; btn.textContent = 'Sending...';
+
+emailjs.send(SERVICE_ID, INVEST_TID, {
+  from_name:       firstName + ' ' + lastName,
+  from_email:      email,
+  organization:    org,
+  investor_type:   document.getElementById('i_type').value,
+  investment_range:document.getElementById('i_range').value,
+  interest:        document.getElementById('i_interest').value,
+  message:         document.getElementById('i_message').value,
+}).then(() => {
+  document.getElementById('invest-form').style.display = 'none';
+  document.getElementById('invest-success').style.display = 'block';
+}).catch(() => {
+  btn.disabled = false; btn.textContent = 'Request Investor Deck';
+  document.getElementById('invest-error').textContent = 'Something went wrong. Please try again.';
+  document.getElementById('invest-error').style.display = 'block';
+});
+```
+
+}
+
+// Island data
+const ISLANDS = [
+{ name:“Cuba”, flag:“🇨🇺”, region:“Greater Antilles”, desc:“Cuba’s agricultural legacy and large population present a unique opportunity for regenerative food systems and renewable energy transition. Tidalwork is exploring partnerships with local cooperatives to build climate-resilient farming infrastructure.”, stats:[{val:“11.2M”,key:“Population”},{val:“109K km²”,key:“Land Area”},{val:“High”,key:“Hurricane Risk”},{val:“Active”,key:“Status”}], pillars:[“Food & Water Security”,“Clean Energy”,“Economic Development”] },
+{ name:“Jamaica”, flag:“🇯🇲”, region:“Greater Antilles”, desc:“Jamaica faces chronic energy insecurity, with 40% of rural households lacking reliable power. Our solar microgrid pilot in St. Elizabeth Parish demonstrates how clean energy and local ownership can coexist profitably.”, stats:[{val:“2.8M”,key:“Population”},{val:“10,990 km²”,key:“Land Area”},{val:“High”,key:“Hurricane Risk”},{val:“Active”,key:“Status”}], pillars:[“Clean Energy Microgrids”,“Healthcare Access”,“Economic Development”] },
+{ name:“Haiti”, flag:“🇭🇹”, region:“Greater Antilles”, desc:“Haiti requires the most comprehensive Tidalwork deployment — all four pillars simultaneously. We’re working with local NGOs and diaspora investors to fund integrated recovery infrastructure that prioritizes community ownership.”, stats:[{val:“11.4M”,key:“Population”},{val:“27,750 km²”,key:“Land Area”},{val:“Very High”,key:“Hurricane Risk”},{val:“Planning”,key:“Status”}], pillars:[“Climate Recovery”,“Healthcare Access”,“Food & Water Security”,“Economic Development”] },
+{ name:“Dominican Rep.”, flag:“🇩🇴”, region:“Greater Antilles”, desc:“The Dominican Republic’s growing economy and strong government partnerships make it a model Tidalwork country. Our telehealth platform will serve rural provinces across the island.”, stats:[{val:“10.8M”,key:“Population”},{val:“48,730 km²”,key:“Land Area”},{val:“High”,key:“Hurricane Risk”},{val:“Active”,key:“Status”}], pillars:[“Healthcare Access”,“Clean Energy Microgrids”,“Food & Water Security”] },
+{ name:“Puerto Rico”, flag:“🇵🇷”, region:“Greater Antilles”, desc:“Post-Maria recovery remains a central focus. Tidalwork’s energy resilience program aims to help thousands of households gain solar-plus-storage independence, reducing dependence on the fragile central grid.”, stats:[{val:“3.2M”,key:“Population”},{val:“9,104 km²”,key:“Land Area”},{val:“Very High”,key:“Hurricane Risk”},{val:“Active”,key:“Status”}], pillars:[“Climate Recovery”,“Clean Energy Microgrids”,“Economic Development”] },
+{ name:“Barbados”, flag:“🇧🇧”, region:“Eastern Caribbean”, desc:“Barbados is Tidalwork’s regional hub for fintech and impact bond structuring. The island’s sophisticated financial sector and strong governance make it ideal for anchoring Caribbean-wide investment vehicles.”, stats:[{val:“287K”,key:“Population”},{val:“430 km²”,key:“Land Area”},{val:“Medium”,key:“Hurricane Risk”},{val:“Active”,key:“Status”}], pillars:[“Economic Development”,“Clean Energy Microgrids”] },
+{ name:“Trinidad & Tobago”, flag:“🇹🇹”, region:“Southern Caribbean”, desc:“Trinidad’s energy sector expertise is being leveraged to transition from fossil fuel dependence toward a mixed renewable model. Tobago serves as a flagship eco-tourism and food security demonstration island.”, stats:[{val:“1.4M”,key:“Population”},{val:“5,130 km²”,key:“Land Area”},{val:“Low”,key:“Hurricane Risk”},{val:“Active”,key:“Status”}], pillars:[“Clean Energy Microgrids”,“Food & Water Security”,“Economic Development”] },
+{ name:“Grenada”, flag:“🇬🇩”, region:“Eastern Caribbean”, desc:“Grenada’s ‘Spice Island’ agriculture is being modernized through regenerative farming programs, reducing reliance on imports and building cold-chain logistics to access regional export markets.”, stats:[{val:“112K”,key:“Population”},{val:“344 km²”,key:“Land Area”},{val:“Medium”,key:“Hurricane Risk”},{val:“Active”,key:“Status”}], pillars:[“Food & Water Security”,“Economic Development”] },
+{ name:“Saint Lucia”, flag:“🇱🇨”, region:“Eastern Caribbean”, desc:“Saint Lucia’s health ministry has partnered with Tidalwork to deploy mobile clinics across the island’s mountainous interior, reaching communities that previously had no access to specialist care.”, stats:[{val:“184K”,key:“Population”},{val:“616 km²”,key:“Land Area”},{val:“High”,key:“Hurricane Risk”},{val:“Active”,key:“Status”}], pillars:[“Healthcare Access”,“Food & Water Security”,“Clean Energy Microgrids”] },
+{ name:“St. Vincent”, flag:“🇻🇨”, region:“Eastern Caribbean”, desc:“Following the 2021 La Soufrière eruption, Tidalwork assisted in rapid volcanic recovery logistics and is now building permanent resilience infrastructure to protect against future natural disasters.”, stats:[{val:“110K”,key:“Population”},{val:“389 km²”,key:“Land Area”},{val:“High”,key:“Hurricane Risk”},{val:“Active”,key:“Status”}], pillars:[“Climate Recovery”,“Food & Water Security”,“Economic Development”] },
+{ name:“The Bahamas”, flag:“🇧🇸”, region:“Northern Caribbean”, desc:“Grand Bahama and Abaco are still rebuilding from Hurricane Dorian. Tidalwork’s resilient housing program aims to construct storm-hardened homes while integrating solar and rainwater systems into every build.”, stats:[{val:“393K”,key:“Population”},{val:“13,878 km²”,key:“Land Area”},{val:“Very High”,key:“Hurricane Risk”},{val:“Active”,key:“Status”}], pillars:[“Climate Recovery”,“Clean Energy Microgrids”,“Water Independence”] },
+{ name:“Antigua & Barbuda”, flag:“🇦🇬”, region:“Eastern Caribbean”, desc:“Barbuda, almost entirely evacuated after Hurricane Irma, is being rebuilt with Tidalwork’s full four-pillar model as a proof-of-concept for island-wide resilient community design.”, stats:[{val:“93K”,key:“Population”},{val:“442 km²”,key:“Land Area”},{val:“High”,key:“Hurricane Risk”},{val:“Active”,key:“Status”}], pillars:[“Climate Recovery”,“Clean Energy Microgrids”,“Food & Water Security”,“Healthcare Access”] },
+{ name:“Dominica”, flag:“🇩🇲”, region:“Eastern Caribbean”, desc:“Dominica’s goal of becoming the world’s first climate-resilient nation aligns perfectly with Tidalwork’s mission. We’re co-developing the island’s national resilience roadmap alongside the government.”, stats:[{val:“72K”,key:“Population”},{val:“750 km²”,key:“Land Area”},{val:“Very High”,key:“Hurricane Risk”},{val:“Active”,key:“Status”}], pillars:[“Climate Recovery”,“Clean Energy Microgrids”,“Water Independence”,“Economic Development”] },
+{ name:“St. Kitts & Nevis”, flag:“🇰🇳”, region:“Eastern Caribbean”, desc:“St. Kitts and Nevis is exploring a first-of-its-kind ‘resilience passport’ program, offering citizenship-by-resilience-investment to fund critical island infrastructure.”, stats:[{val:“47K”,key:“Population”},{val:“261 km²”,key:“Land Area”},{val:“High”,key:“Hurricane Risk”},{val:“Pilot”,key:“Status”}], pillars:[“Economic Development”,“Clean Energy Microgrids”] },
+{ name:“U.S. Virgin Islands”, flag:“🇻🇮”, region:“U.S. Caribbean”, desc:“The USVI’s federal relationship opens unique financing avenues. Tidalwork is partnering with local utilities and federal agencies to build community microgrids that can survive Category 5 hurricane impacts.”, stats:[{val:“104K”,key:“Population”},{val:“347 km²”,key:“Land Area”},{val:“Very High”,key:“Hurricane Risk”},{val:“Active”,key:“Status”}], pillars:[“Clean Energy Microgrids”,“Climate Recovery”,“Healthcare Access”] },
+{ name:“Aruba”, flag:“🇦🇼”, region:“ABC Islands”, desc:“Aruba’s near-drought conditions and desalination expertise make it an ideal partner for Tidalwork’s water security programs. We’re looking to export Aruba’s desalination know-how to water-stressed islands across the region.”, stats:[{val:“107K”,key:“Population”},{val:“180 km²”,key:“Land Area”},{val:“Low”,key:“Hurricane Risk”},{val:“Active”,key:“Status”}], pillars:[“Water Independence”,“Economic Development”] },
+{ name:“Curaçao”, flag:“🇨🇼”, region:“ABC Islands”, desc:“Curaçao’s strategic port and financial services sector make it a logistics and finance hub for Tidalwork’s eastern operations.”, stats:[{val:“153K”,key:“Population”},{val:“444 km²”,key:“Land Area”},{val:“Low”,key:“Hurricane Risk”},{val:“Active”,key:“Status”}], pillars:[“Economic Development”,“Food & Water Security”] },
+{ name:“Turks & Caicos”, flag:“🇹🇨”, region:“Northern Caribbean”, desc:“Turks & Caicos’ luxury tourism economy is being diversified through Tidalwork’s local enterprise incubation, creating sustainable livelihoods that don’t depend entirely on seasonal tourism revenue.”, stats:[{val:“45K”,key:“Population”},{val:“948 km²”,key:“Land Area”},{val:“High”,key:“Hurricane Risk”},{val:“Pilot”,key:“Status”}], pillars:[“Economic Development”,“Food & Water Security”,“Clean Energy Microgrids”] },
+{ name:“Guyana”, flag:“🇬🇾”, region:“South America / Caribbean”, desc:“Guyana’s oil boom presents both opportunity and risk. Tidalwork is partnering with the government to ensure oil revenues fund a just transition to renewable energy and food-secure communities in coastal regions.”, stats:[{val:“790K”,key:“Population”},{val:“214K km²”,key:“Land Area”},{val:“Low”,key:“Hurricane Risk”},{val:“Planning”,key:“Status”}], pillars:[“Economic Development”,“Food & Water Security”,“Clean Energy Microgrids”] },
+{ name:“Suriname”, flag:“🇸🇷”, region:“South America / Caribbean”, desc:“Suriname’s vast rainforest and agricultural potential are largely untapped. Tidalwork is developing regenerative agriculture corridors along the coast to reduce food imports and build export-ready supply chains.”, stats:[{val:“615K”,key:“Population”},{val:“163K km²”,key:“Land Area”},{val:“Low”,key:“Hurricane Risk”},{val:“Planning”,key:“Status”}], pillars:[“Food & Water Security”,“Economic Development”] },
+];
+
+// Build island grid
+const grid = document.getElementById(‘islandsGrid’);
+ISLANDS.forEach(island => {
+const el = document.createElement(‘div’);
+el.className = ‘island-tag’;
+el.innerHTML = `<div class="island-flag">${island.flag}</div><div class="island-name">${island.name}</div>`;
+el.addEventListener(‘click’, () => openIslandModal(island));
+grid.appendChild(el);
+});
+
+// Modal logic
+function openModal(type) {
+document.getElementById(‘modal-’ + type).classList.add(‘open’);
+document.body.style.overflow = ‘hidden’;
+}
+function closeModal(type) {
+document.getElementById(‘modal-’ + type).classList.remove(‘open’);
+document.body.style.overflow = ‘’;
+}
+function closeOnBackdrop(e, type) {
+if (e.target === document.getElementById(‘modal-’ + type)) closeModal(type);
+}
+document.addEventListener(‘keydown’, e => {
+if (e.key === ‘Escape’) [‘partner’,‘invest’,‘report’,‘island’].forEach(closeModal);
+});
+
+function openIslandModal(island) {
+document.getElementById(‘island-modal-name’).textContent = island.name;
+document.getElementById(‘island-modal-region’).textContent = island.region;
+document.getElementById(‘island-modal-flag’).textContent = island.flag;
+document.getElementById(‘island-modal-desc’).textContent = island.desc;
+document.getElementById(‘island-modal-stats’).innerHTML = island.stats.map(s => `<div class="island-stat-box"><div class="island-stat-val">${s.val}</div><div class="island-stat-key">${s.key}</div></div>`).join(’’);
+document.getElementById(‘island-modal-tags’).innerHTML = island.pillars.map(p => `<span class="island-pill">${p}</span>`).join(’’);
+openModal(‘island’);
+}
+
+// Fade-up on scroll
+const observer = new IntersectionObserver((entries) => {
+entries.forEac
