@@ -134,6 +134,8 @@
     #cta h2 em { color: var(--gold); }
     #cta p { color: rgba(242,232,213,0.7); font-size: 1rem; max-width: 500px; margin: 0 auto 2.4rem; line-height: 1.7; position: relative; }
     .cta-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; position: relative; }
+    .btn-donate { background: var(--gold); color: var(--ocean); padding: 0.9rem 2rem; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; transition: background 0.2s, transform 0.2s; font-weight: 600; }
+    .btn-donate:hover { background: #c49a30; transform: translateY(-2px); }
     footer { background: var(--ocean); color: rgba(242,232,213,0.5); display: flex; justify-content: space-between; align-items: center; padding: 2rem 3rem; font-size: 0.82rem; border-top: 3px solid var(--teal); }
     footer .footer-logo { font-family: 'Playfair Display', serif; color: var(--sand); font-size: 1.1rem; font-weight: 700; }
     footer .footer-logo span { color: var(--turquoise); }
@@ -178,6 +180,13 @@
     .report-row:last-of-type { border-bottom: none; }
     .report-row-label { font-size: 0.88rem; color: #3a5060; }
     .report-row-val { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--teal); font-weight: 700; }
+    .donate-intro { text-align: center; margin-bottom: 1.6rem; }
+    .donate-intro .donate-icon { font-size: 3rem; margin-bottom: 0.8rem; }
+    .donate-intro h4 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--ocean); margin-bottom: 0.6rem; }
+    .donate-intro p { font-size: 0.9rem; color: #4a6070; line-height: 1.65; }
+    .donate-badge { display: inline-block; background: rgba(212,168,67,0.15); color: var(--teal); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.8rem; margin-bottom: 1.4rem; border: 1px solid rgba(212,168,67,0.3); }
+    .modal-submit-gold { width: 100%; background: var(--gold); color: var(--ocean); border: none; padding: 0.85rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; margin-top: 0.4rem; transition: background 0.2s; font-weight: 600; }
+    .modal-submit-gold:hover { background: #c49a30; }
     @media (max-width: 900px) {
       #hero { grid-template-columns: 1fr; padding-top: 7rem; }
       .hero-visual { display: none; }
@@ -268,11 +277,23 @@
 
 <section id="how">
   <div class="section-eyebrow" style="position:relative;z-index:1;">How It Works</div>
-  <h2 style="position:relative;z-index:1;">The <em>Tidalwork</em> model</h2>
+  <h2 style="position:relative;z-index:1;">The Tidalwork <em>vision</em></h2>
   <div class="steps">
-    <div class="step fade-up"><div class="step-num">1</div><h3>Assess & Partner</h3><p>We embed with island governments and communities to map vulnerabilities, build trust, and co-design solutions that fit local culture and needs.</p></div>
-    <div class="step fade-up"><div class="step-num">2</div><h3>Deploy Integrated Solutions</h3><p>Our four-pillar platform is deployed simultaneously — each system reinforcing the others. Energy powers clinics; local farms supply recovery workers.</p></div>
-    <div class="step fade-up"><div class="step-num">3</div><h3>Generate Returns & Scale</h3><p>Revenue from government contracts, service fees, and impact bonds funds expansion to new islands. Every dollar earns a return and drives real change.</p></div>
+    <div class="step fade-up">
+      <div class="step-num">1</div>
+      <h3>Assess & Partner</h3>
+      <p>We plan to embed directly with island governments and communities to map vulnerabilities, build trust, and co-design solutions that fit local culture and real needs — before a single dollar is deployed.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-num">2</div>
+      <h3>Deploy Integrated Solutions</h3>
+      <p>Our four-pillar platform will be deployed simultaneously — each system designed to reinforce the others. Energy powering clinics. Local farms supplying recovery workers. Nothing in isolation, everything connected.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-num">3</div>
+      <h3>Generate Returns & Scale</h3>
+      <p>What if governments, investors, and everyday people all had a role to play? We're building a funding model that welcomes all three — from impact investors seeking returns, to community supporters who simply believe in a resilient Caribbean. Every contribution moves us forward.</p>
+    </div>
   </div>
 </section>
 
@@ -306,10 +327,11 @@
 <section id="cta">
   <div class="section-eyebrow" style="color:var(--turquoise);position:relative;">Get Involved</div>
   <h2>Ready to build the<br/><em>resilient Caribbean?</em></h2>
-  <p>Whether you're a government, investor, NGO, or community leader — there's a place for you in the Tidalwork ecosystem.</p>
+  <p>Whether you're a government, investor, NGO, community leader, or someone who simply believes in the mission — there's a place for you in the Tidalwork ecosystem.</p>
   <div class="cta-btns">
     <button class="btn-primary" onclick="openModal('partner')">Partner With Us</button>
     <button class="btn-outline" onclick="openModal('invest')">Invest With Us</button>
+    <button class="btn-donate" onclick="openModal('donate')">Donate ♥</button>
   </div>
 </section>
 
@@ -318,6 +340,8 @@
   <div>Caribbean Resilience Co. · Est. 2026</div>
   <div><a href="mailto:hello@tidalwork.co">hello@tidalwork.co</a> · © 2026 Tidalwork</div>
 </footer>
+
+<!-- Partner Modal -->
 
 <div class="modal-overlay" id="modal-partner" onclick="closeOnBackdrop(event,'partner')">
   <div class="modal">
@@ -358,6 +382,8 @@
     </div>
   </div>
 </div>
+
+<!-- Invest Modal -->
 
 <div class="modal-overlay" id="modal-invest" onclick="closeOnBackdrop(event,'invest')">
   <div class="modal">
@@ -404,6 +430,8 @@
   </div>
 </div>
 
+<!-- Report Modal -->
+
 <div class="modal-overlay" id="modal-report" onclick="closeOnBackdrop(event,'report')">
   <div class="modal">
     <div class="modal-header">
@@ -427,6 +455,8 @@
   </div>
 </div>
 
+<!-- Island Modal -->
+
 <div class="modal-overlay" id="modal-island" onclick="closeOnBackdrop(event,'island')">
   <div class="modal">
     <div class="modal-header">
@@ -440,6 +470,38 @@
       <div class="island-pillars-label">Active Tidalwork Pillars</div>
       <div class="island-tags" id="island-modal-tags"></div>
       <button class="modal-submit" onclick="closeModal('island');openModal('partner')">Partner With Us in This Island →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Donate Modal -->
+
+<div class="modal-overlay" id="modal-donate" onclick="closeOnBackdrop(event,'donate')">
+  <div class="modal">
+    <div class="modal-header" style="border-bottom-color: var(--gold);">
+      <div class="modal-header-text"><h3>Support the Mission</h3><p>Community Supporters · Donors</p></div>
+      <button class="modal-close" onclick="closeModal('donate')">×</button>
+    </div>
+    <div class="modal-body">
+      <div id="donate-form">
+        <div class="donate-intro">
+          <div class="donate-icon">🌊</div>
+          <h4>You don't have to be a fund to make a difference.</h4>
+          <p>We're building a donation program for everyday people who believe in a resilient Caribbean. Leave your email and we'll notify you the moment it's live.</p>
+        </div>
+        <div style="text-align:center; margin-bottom:1.4rem;">
+          <span class="donate-badge">Donations opening soon</span>
+        </div>
+        <div class="form-group"><label>Your Name</label><input type="text" id="d_name" placeholder="Your name"/></div>
+        <div class="form-group"><label>Email Address</label><input type="email" id="d_email" placeholder="you@example.com"/></div>
+        <div class="error-msg" id="donate-error">Please enter your name and email.</div>
+        <button class="modal-submit-gold" onclick="saveDonateEmail()">Notify Me When Donations Open</button>
+      </div>
+      <div class="success-msg" id="donate-success">
+        <div class="success-icon">💛</div>
+        <h4>You're on the list!</h4>
+        <p>We'll reach out as soon as our donation program launches. Thank you for believing in this mission.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -498,6 +560,16 @@ function sendInvest() {
   });
 }
 
+function saveDonateEmail() {
+  const name = document.getElementById('d_name').value.trim();
+  const email = document.getElementById('d_email').value.trim();
+  if (!name || !email) { document.getElementById('donate-error').style.display = 'block'; return; }
+  document.getElementById('donate-error').style.display = 'none';
+  // Emails stored locally for now — will connect to EmailJS once LLC is filed
+  document.getElementById('donate-form').style.display = 'none';
+  document.getElementById('donate-success').style.display = 'block';
+}
+
 const ISLANDS = [
   {name:"Cuba",flag:"🇨🇺",region:"Greater Antilles",desc:"Cuba's agricultural legacy and large population present a unique opportunity for regenerative food systems and renewable energy transition. Tidalwork is exploring partnerships with local cooperatives to build climate-resilient farming infrastructure.",stats:[{val:"11.2M",key:"Population"},{val:"109K km²",key:"Land Area"},{val:"High",key:"Hurricane Risk"},{val:"Active",key:"Status"}],pillars:["Food & Water Security","Clean Energy","Economic Development"]},
   {name:"Jamaica",flag:"🇯🇲",region:"Greater Antilles",desc:"Jamaica faces chronic energy insecurity, with 40% of rural households lacking reliable power. Our solar microgrid pilot in St. Elizabeth Parish demonstrates how clean energy and local ownership can coexist profitably.",stats:[{val:"2.8M",key:"Population"},{val:"10,990 km²",key:"Land Area"},{val:"High",key:"Hurricane Risk"},{val:"Active",key:"Status"}],pillars:["Clean Energy Microgrids","Healthcare Access","Economic Development"]},
@@ -533,7 +605,7 @@ ISLANDS.forEach(island => {
 function openModal(type) { document.getElementById('modal-' + type).classList.add('open'); document.body.style.overflow = 'hidden'; }
 function closeModal(type) { document.getElementById('modal-' + type).classList.remove('open'); document.body.style.overflow = ''; }
 function closeOnBackdrop(e, type) { if (e.target === document.getElementById('modal-' + type)) closeModal(type); }
-document.addEventListener('keydown', function(e) { if (e.key === 'Escape') ['partner','invest','report','island'].forEach(closeModal); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') ['partner','invest','report','island','donate'].forEach(closeModal); });
 
 function openIslandModal(island) {
   document.getElementById('island-modal-name').textContent = island.name;
