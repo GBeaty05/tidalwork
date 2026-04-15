@@ -180,6 +180,22 @@
     .report-row:last-of-type { border-bottom: none; }
     .report-row-label { font-size: 0.88rem; color: #3a5060; }
     .report-row-val { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--teal); font-weight: 700; }
+    #why { background: var(--ocean); color: var(--sand); position: relative; overflow: hidden; }
+    #why::before { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg width='80' height='40' viewBox='0 0 80 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 Q20 0 40 20 Q60 40 80 20' stroke='%2314a7a0' stroke-width='1' fill='none' opacity='0.06'/%3E%3C/svg%3E"); background-size: 80px 40px; }
+    #why .section-eyebrow { color: var(--turquoise); }
+    #why h2 { color: var(--sand); }
+    #why h2 em { color: var(--gold); }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 3rem; position: relative; z-index: 1; }
+    .why-statement { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.2; color: var(--sand); margin-bottom: 1.6rem; }
+    .why-statement em { color: var(--gold); font-style: italic; }
+    .why-body { font-size: 1rem; line-height: 1.8; color: rgba(242,232,213,0.75); }
+    .why-cards { display: flex; flex-direction: column; gap: 1.2rem; }
+    .why-card { background: rgba(255,255,255,0.05); border-left: 3px solid var(--turquoise); padding: 1.2rem 1.4rem; }
+    .why-card:nth-child(2) { border-left-color: var(--gold); }
+    .why-card:nth-child(3) { border-left-color: var(--coral); }
+    .why-card h4 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--sand); margin-bottom: 0.4rem; }
+    .why-card p { font-size: 0.85rem; color: rgba(242,232,213,0.65); line-height: 1.6; }
+    @media (max-width: 900px) { .why-grid { grid-template-columns: 1fr; gap: 2rem; } }
     .donate-intro { text-align: center; margin-bottom: 1.6rem; }
     .donate-intro .donate-icon { font-size: 3rem; margin-bottom: 0.8rem; }
     .donate-intro h4 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--ocean); margin-bottom: 0.6rem; }
@@ -215,6 +231,7 @@
   <ul class="nav-links">
     <li><a href="#pillars">What We Do</a></li>
     <li><a href="#how">How It Works</a></li>
+    <li><a href="#why">Why Tidalwork</a></li>
     <li><a href="#impact">Impact</a></li>
     <li><a href="#islands">Islands</a></li>
   </ul>
@@ -293,6 +310,21 @@
       <div class="step-num">3</div>
       <h3>Generate Returns & Scale</h3>
       <p>What if governments, investors, and everyday people all had a role to play? We're building a funding model that welcomes all three — from impact investors seeking returns, to community supporters who simply believe in a resilient Caribbean. Every contribution moves us forward.</p>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="section-eyebrow" style="position:relative;z-index:1;">Why Tidalwork</div>
+  <h2 style="position:relative;z-index:1;"><em>Recovery</em> is a starting line,<br/>not a finish line.</h2>
+  <div class="why-grid">
+    <div class="fade-up">
+      <p class="why-body">When the headlines fade and the relief trucks leave, the real work begins. Tidalwork is built for what comes next — permanent infrastructure, local ownership, and communities strong enough to weather whatever comes their way.</p>
+    </div>
+    <div class="why-cards fade-up">
+      <div class="why-card"><h4>Permanent Infrastructure</h4><p>We build energy systems, water systems, and healthcare networks designed to last decades — not just survive the next news cycle.</p></div>
+      <div class="why-card"><h4>Local Ownership</h4><p>Every project is structured so communities build equity and self-sufficiency. We invest in people, not dependency.</p></div>
+      <div class="why-card"><h4>Ready for What's Next</h4><p>We don't just help islands recover from the last storm. We prepare them so the next one doesn't define them.</p></div>
     </div>
   </div>
 </section>
